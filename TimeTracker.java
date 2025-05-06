@@ -13,6 +13,7 @@ public class TimeTracker {
     private long totalWaitTime = 0;
     private long totalTurnaroundTime = 0;
     private long[] switchTimes;
+    private long[] cpuBursts;
     private final String baseFolder;
     private static final Object lock = new Object();
     private static int entitiesCompleted = 0;
@@ -27,9 +28,9 @@ public class TimeTracker {
         this.baseFolder = baseFolderPath;
 
         switchTimes = new long[entityCount];
-
+        cpuBursts = new long[entityCount];
         for (int i = 0; i < entityCount; i++) {
-         
+            cpuBursts[i] = 0;
             switchTimes[i] = 0;
         }
         if (baseFolderPath == null || baseFolderPath.trim().isEmpty())
@@ -123,6 +124,7 @@ public class TimeTracker {
 
     public void logBurstTime(int id, long start, long end, String task) throws IOException {
         long burst = end - start;
+        cpuBursts[id] += burst;
         totalBusyTime += burst;
         writeToCSV(burst, id, "CPU_Burst", task);
     }
