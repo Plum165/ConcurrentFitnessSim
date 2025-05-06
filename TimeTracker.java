@@ -50,7 +50,7 @@ public class TimeTracker {
             try (FileWriter writer = new FileWriter(file, false)) {
                if (label.equals("Total")){writer.write("Task,Time,Metric\n");}
                else{
-                writer.write("Entity,Task,Time in miliseconds,Metric\n");
+                writer.write("Entity,Task,Time in nanoseconds,Metric\n");
                   }
             } catch (IOException e) {
                 System.err.println("Error creating CSV: " + e.getMessage());
