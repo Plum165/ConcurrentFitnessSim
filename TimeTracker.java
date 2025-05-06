@@ -12,7 +12,6 @@ public class TimeTracker {
     private long totalBusyTime;
     private long totalWaitTime = 0;
     private long totalTurnaroundTime = 0;
-    private long[] cpuBursts;
     private long[] switchTimes;
     private final String baseFolder;
     private static final Object lock = new Object();
@@ -27,11 +26,10 @@ public class TimeTracker {
         this.entityCount = entityCount;
         this.baseFolder = baseFolderPath;
 
-        cpuBursts = new long[entityCount];
         switchTimes = new long[entityCount];
 
         for (int i = 0; i < entityCount; i++) {
-            cpuBursts[i] = 0;
+         
             switchTimes[i] = 0;
         }
         if (baseFolderPath == null || baseFolderPath.trim().isEmpty())
